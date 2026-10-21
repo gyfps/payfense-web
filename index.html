@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Payfense</title>
+<meta name="description" content="Te avisamos al momento si alguien intenta quitarle dinero a tus padres. App para Android.">
+<meta property="og:title" content="Payfense · Si alguien intenta quitarle dinero a tu madre, te enteras al momento">
+<meta property="og:description" content="App para el móvil Android de tus padres. Sin contraseñas y sin conectar el banco.">
+<style>
+:root{
+  --bg:#f7f6f2;--card:#ffffff;--ink:#1d2433;--muted:#5b6474;--line:#e3e1da;
+  --brand:#1f6f5c;--brand-ink:#ffffff;--warn:#b4441c;--warn-bg:#fdf0ea;--ok-bg:#e8f3ef;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12161d;--card:#1b212b;--ink:#eef1f6;--muted:#a6afbf;--line:#2c3441;
+  --brand:#3fb393;--brand-ink:#0d1a16;--warn:#ff9a72;--warn-bg:#2d1f19;--ok-bg:#16302a;}}
+:root[data-theme="dark"]{
+  --bg:#12161d;--card:#1b212b;--ink:#eef1f6;--muted:#a6afbf;--line:#2c3441;
+  --brand:#3fb393;--brand-ink:#0d1a16;--warn:#ff9a72;--warn-bg:#2d1f19;--ok-bg:#16302a;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+header{padding:20px 0;display:flex;align-items:center;gap:10px;font-weight:700}
+.logo{width:34px;height:34px;border-radius:10px;background:var(--brand);color:var(--brand-ink);display:grid;place-items:center;font-size:18px}
+h1{font-size:clamp(30px,6vw,48px);line-height:1.1;margin:24px 0 14px;letter-spacing:-.02em}
+h2{font-size:clamp(24px,4vw,32px);margin:56px 0 18px;letter-spacing:-.01em}
+p.lead{font-size:clamp(18px,2.6vw,21px);color:var(--muted);max-width:640px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin:26px 0 8px}
+.btn{display:inline-block;padding:15px 22px;border-radius:12px;font-weight:700;text-decoration:none;border:2px solid var(--brand)}
+.btn.primary{background:var(--brand);color:var(--brand-ink)}
+.btn.ghost{color:var(--brand);background:transparent}
+.btn.big{font-size:19px;padding:18px 26px;text-align:center}
+.small{font-size:14px;color:var(--muted)}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+.step{font-weight:800;color:var(--brand);font-size:15px}
+.phone{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:16px;max-width:360px}
+.notif{border-radius:12px;padding:12px 14px;margin:8px 0;font-size:15px}
+.notif.bank{background:var(--bg);border:1px solid var(--line)}
+.notif.alert{background:var(--warn-bg);color:var(--warn);font-weight:700}
+.notif.kid{background:var(--ok-bg)}
+.hero{display:grid;gap:28px;grid-template-columns:1.3fr 1fr;align-items:center}
+@media (max-width:760px){.hero{grid-template-columns:1fr}}
+ul.checks{list-style:none;padding:0;margin:0}
+ul.checks li{padding-left:30px;position:relative;margin:10px 0}
+ul.checks li:before{content:"✓";position:absolute;left:0;color:var(--brand);font-weight:800}
+.stat{font-size:34px;font-weight:800;color:var(--brand)}
+details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0}
+summary{font-weight:700;cursor:pointer}
+a.guia{color:var(--ink);text-decoration:none;display:block}
+a.guia b{color:var(--brand)}
+footer{margin:64px 0 32px;color:var(--muted);font-size:14px;display:flex;flex-wrap:wrap;gap:16px}
+footer a{color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><span class="logo">🛡</span> Payfense</header>
+
+  <section class="hero">
+    <div>
+      <h1>Si alguien intenta quitarle dinero a tu madre, te enteras al momento.</h1>
+      <p class="lead">Payfense es una app para el móvil Android de tus padres. Cuando su banco les avisa de algo raro (un Bizum, una transferencia o una petición de dinero), te llega una alerta a ti. Así puedes llamarles a tiempo.</p>
+      <div class="cta">
+        <a class="btn primary" href="#apuntate">Apúntate gratis</a>
+        <a class="btn ghost" href="#fundador">Plaza fundador · 29 €</a>
+      </div>
+      <p class="small">Sin contraseñas. Sin conectar el banco. Nunca toca el dinero.</p>
+    </div>
+    <div class="phone" aria-label="Ejemplo de aviso">
+      <div class="small">Móvil de tu madre</div>
+      <div class="notif bank">🏦 Bizum: <b>Laura te ha solicitado 300 €</b></div>
+      <div class="notif alert">⚠️ ¡Ojo! Te están PIDIENDO dinero, no te lo están dando.</div>
+      <div class="small" style="margin-top:14px">Tu móvil</div>
+      <div class="notif kid">🛡 <b>Payfense:</b> a mamá le han pedido 300 € por Bizum. ¿La llamas?</div>
+    </div>
+  </section>
+
+  <h2>Cómo funciona</h2>
+  <div class="grid">
+    <div class="card"><div class="step">1</div><p>Instalas Payfense en el móvil de tu madre o tu padre. Son 5 minutos y te guiamos paso a paso.</p></div>
+    <div class="card"><div class="step">2</div><p>La app solo lee los avisos que su banco ya le envía: pagos, Bizum y transferencias. Nada más.</p></div>
+    <div class="card"><div class="step">3</div><p>Si algo es raro, a ella le sale un aviso grande y a ti te llega una alerta al instante.</p></div>
+  </div>
+
+  <h2>Qué detecta</h2>
+  <div class="grid">
+    <div class="card"><b>El "Bizum inverso"</b><p class="small">Le piden dinero haciéndose pasar por un comprador y cree que lo está recibiendo. Recibir un Bizum nunca hay que aceptarlo.</p></div>
+    <div class="card"><b>Transferencias grandes o a alguien nuevo</b><p class="small">El típico "soy del banco, mueva su dinero a una cuenta segura".</p></div>
+    <div class="card"><b>Pagos raros</b><p class="small">Compras de madrugada, en el extranjero o muchos cargos seguidos.</p></div>
+  </div>
+
+  <h2>Por qué ahora</h2>
+  <div class="grid">
+    <div class="card"><div class="stat">429.677</div><p class="small">estafas informáticas en España en 2025, un 4 % más que en 2024 (Ministerio del Interior).</p></div>
+    <div class="card"><div class="stat">9 de 10</div><p class="small">ciberdelitos en España son estafas (Ministerio del Interior, 2025).</p></div>
+    <div class="card"><div class="stat">73 %</div><p class="small">de los móviles en España son Android (Statcounter, septiembre de 2026).</p></div>
+  </div>
+
+  <h2>Tranquilidad para todos</h2>
+  <div class="card">
+    <ul class="checks">
+      <li>No pedimos contraseñas ni conectamos su banco.</li>
+      <li>No podemos mover ni un euro.</li>
+      <li>Solo miramos los avisos del banco. WhatsApp, fotos y lo demás ni se tocan.</li>
+      <li>Tu madre decide: ve siempre qué se comparte y puede desactivarla cuando quiera.</li>
+    </ul>
+  </div>
+
+  <h2 id="apuntate">Apúntate a la lista</h2>
+  <div class="card">
+    <p>Dos preguntas, 20 segundos. Los apuntados la prueban antes que nadie.</p>
+    <div class="cta"><a class="btn primary big" href="https://docs.google.com/forms/d/e/1FAIpQLSf0JmtQz_4ahZUHwywUfacTEf2be-mP0vHsVRKnVqOBvSyNEw/viewform" target="_blank" rel="noopener">Quiero probarlo primero</a></div>
+    <p class="small">Al apuntarte aceptas recibir emails sobre Payfense según la <a href="privacidad.html">política de privacidad</a>. Te puedes dar de baja cuando quieras.</p>
+  </div>
+
+  <h2 id="fundador">Plaza fundador</h2>
+  <div class="card">
+    <p><b>29 € el primer año</b> (después, 39 €/año o 4,99 €/mes). Solo para los 100 primeros.</p>
+    <ul class="checks">
+      <li>Acceso antes que nadie.</li>
+      <li>Precio fundador mientras sigas.</li>
+      <li>Si no te convence, o si la app no llega a salir, te devolvemos el dinero sin preguntas.</li>
+    </ul>
+    <!-- PENDIENTE-STRIPE: cambiar este enlace por el de https://buy.stripe.com/... cuando exista -->
+    <div class="cta"><a class="btn primary" id="btn-fundador" href="https://docs.google.com/forms/d/e/1FAIpQLSf0JmtQz_4ahZUHwywUfacTEf2be-mP0vHsVRKnVqOBvSyNEw/viewform" target="_blank" rel="noopener">Reservar mi plaza · 29 €</a></div>
+    <p class="small" id="nota-fundador">Las reservas se abren en unos días. Apúntate a la lista y te avisamos los primeros.</p>
+  </div>
+
+  <h2>Guías gratis contra las estafas</h2>
+  <div class="grid">
+    <div class="card"><a class="guia" href="bizum-inverso.html"><b>Bizum inverso</b><p class="small">Qué es, cómo reconocerlo y qué hacer si tus padres han caído.</p></a></div>
+    <div class="card"><a class="guia" href="estafa-hijo-en-apuros.html"><b>"Hola mamá, se me ha roto el móvil"</b><p class="small">La estafa del hijo en apuros, explicada paso a paso.</p></a></div>
+    <div class="card"><a class="guia" href="avisos-banco-padres.html"><b>Vigilar el banco de tus padres sin contraseñas</b><p class="small">4 formas de enterarte a tiempo si algo va mal.</p></a></div>
+  </div>
+
+  <h2>Preguntas</h2>
+  <details><summary>¿Funciona en iPhone?</summary><p>De momento no. Apple no deja que las apps lean los avisos de otras apps. Funciona en Android, que tienen 7 de cada 10 móviles en España.</p></details>
+  <details><summary>¿Y si mi madre no quiere que la "vigilen"?</summary><p>No la vigilamos a ella, vigilamos a los estafadores. Ella ve siempre qué se comparte y puede pausarla cuando quiera.</p></details>
+  <details><summary>¿Puede evitar todas las estafas?</summary><p>No, nadie puede. Te avisa en cuanto su banco registra algo raro, para que puedas actuar rápido: llamarla, bloquear la tarjeta o avisar al banco.</p></details>
+  <details><summary>¿Cuándo estará lista?</summary><p>La estamos preparando. Los apuntados la prueban primero.</p></details>
+
+  <footer>
+    <span>© 2026 Payfense</span>
+    <a href="aviso-legal.html">Aviso legal</a>
+    <a href="privacidad.html">Privacidad</a>
+  </footer>
+</div>
+</body>
+</html>
