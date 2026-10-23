@@ -54,9 +54,9 @@
     </a>
     <nav class="nav" aria-label="Principal">
       <a class="hide-sm" href="index.html#como-funciona">Cómo funciona</a>
-      <a class="hide-sm" href="index.html#guias">Guías</a>
-      <a class="hide-sm" href="index.html#preguntas">Preguntas</a>
-      <a class="btn btn-primary btn-sm" href="index.html#apuntate">Unirme a la lista</a>
+      <a class="hide-sm" href="index.html#privacidad">Privacidad</a>
+      <a class="hide-sm" href="detector.html">Detector de estafas</a>
+      <a class="btn btn-primary btn-sm" href="index.html#apuntate">Acceso anticipado</a>
     </nav>
   </div>
 </header>
@@ -66,7 +66,7 @@
 <div class="crumbs"><a href="index.html">Inicio</a> / Detector de estafas</div>
 <span class="eyebrow">Gratis · Sin registrarte</span>
 <h1>¿Es una estafa este mensaje?</h1>
-<p class="lead">Pega el SMS, WhatsApp o email que te ha llegado a ti o a tus padres. En un segundo te decimos si tiene pinta de estafa y por qué.</p>
+<p class="lead">Pega el SMS, WhatsApp o email que te ha llegado a ti o a alguien que quieres. En un segundo te decimos si tiene pinta de estafa y por qué.</p>
 
 <div class="det-box">
   <label for="msg">Pega aquí el mensaje que te ha llegado</label>
@@ -92,7 +92,7 @@
   <ul id="res-motivos"></ul>
   <div class="todo"><h3>Qué hacer ahora</h3><p id="res-hacer" style="margin:0"></p></div>
   <div class="share">
-    <button class="btn btn-mint" id="compartir" type="button">Envíaselo a tu familia</button>
+    <button class="btn btn-mint" id="compartir" type="button">Compártelo con tus seres queridos</button>
     <span id="copiado" role="status"></span>
   </div>
 </section>
@@ -106,9 +106,9 @@
 <li><b>Enlaces raros</b>, prisas, premios, paquetes retenidos, multas y devoluciones de Hacienda falsas.</li>
 <li><b>Apps de control remoto</b> como AnyDesk o TeamViewer, e inversiones “sin riesgo”.</li>
 </ul>
-<p class="small">El detector usa reglas sencillas y puede equivocarse. Si tienes dudas, no pulses enlaces, no des códigos y llama tú a tu banco o a tu familiar al número de siempre. En España puedes llamar gratis al 017 (INCIBE).</p>
+<p class="small">El detector usa reglas sencillas y puede equivocarse. Si tienes dudas, no pulses enlaces, no des códigos y llama tú a tu banco o a esa persona a su número de siempre. En España puedes llamar gratis al 017 (INCIBE).</p>
 
-<div class="article-cta"><h3>¿Y si a tus padres les intentan quitar dinero cuando no estás? Payfense te avisa al momento.</h3><a class="btn btn-primary" href="index.html#apuntate">Apúntate gratis</a></div>
+<div class="article-cta"><h3>¿Y si a quienes más quieres les intentan quitar dinero cuando no estás? Payfense te avisa al momento.</h3><a class="btn btn-primary" href="index.html#apuntate">Quiero acceso anticipado</a></div>
 </div>
 </main>
 
@@ -239,7 +239,7 @@ $("compartir").addEventListener("click", function(){
   var texto = "Antes de pagar o dar un código, pega el mensaje aquí y mira si es una estafa. Es gratis:";
   if(navigator.share){ navigator.share({title:"Detector de estafas gratis", text:texto, url:url}).catch(function(){}); return; }
   var todo = texto + " " + url;
-  if(navigator.clipboard){ navigator.clipboard.writeText(todo).then(function(){ $("copiado").textContent = "Enlace copiado. Pégalo en el grupo de la familia."; }); }
+  if(navigator.clipboard){ navigator.clipboard.writeText(todo).then(function(){ $("copiado").textContent = "Enlace copiado. Pégalo en el chat de tus seres queridos."; }); }
   else { window.prompt("Copia este enlace:", todo); }
 });
 if(typeof module !== "undefined"){ module.exports = {analizar:analizar}; }
