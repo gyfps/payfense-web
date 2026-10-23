@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Detector de estafas gratis: ¿es falso este mensaje? · Payfense</title>
+<meta name="description" content="Pega el SMS, WhatsApp o email que te ha llegado y en un segundo te decimos si tiene pinta de estafa y por qué. Gratis, sin registrarte y sin que el mensaje salga de tu móvil.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="¿Es una estafa este mensaje? Compruébalo gratis">
+<meta property="og:description" content="Pega el mensaje y te decimos en un segundo si es sospechoso. Bizum, Mercado Pago, Nequi, SPEI, falsos bancos, Correos, multas, “hola mamá”…">
+<meta property="og:image" content="https://gyfps.github.io/payfense-web/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0E2A47">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilos.css">
+<style>
+.det-box{background:var(--soft);border-radius:var(--radius);padding:22px;margin-top:28px}
+.det-box label{display:block;font-family:var(--head);font-weight:600;font-size:18px;margin-bottom:10px}
+.det-box textarea{width:100%;min-height:170px;resize:vertical;border:1.5px solid var(--line);border-radius:10px;padding:14px;font:inherit;font-size:17px;background:var(--white);color:var(--ink)}
+.det-box textarea:focus{outline:3px solid var(--mint);outline-offset:1px;border-color:var(--navy)}
+.det-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;align-items:center}
+.det-actions button{cursor:pointer}
+.det-examples{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;font-size:14px;color:var(--muted);align-items:center}
+.det-examples button{cursor:pointer;border:1px solid var(--line);background:var(--white);color:var(--navy);border-radius:999px;padding:6px 12px;font:inherit;font-size:14px}
+.det-examples button:hover{border-color:var(--navy)}
+.det-privacy{font-size:14px;color:var(--muted);margin:12px 0 0}
+.result{margin-top:28px;border-radius:var(--radius);padding:24px;border:2px solid var(--line)}
+.result[hidden]{display:none}
+.result .light{display:flex;align-items:center;gap:14px}
+.result .dot{width:44px;height:44px;border-radius:50%;flex:none}
+.result h2{font-size:clamp(22px,3vw,28px);margin:0}
+.result.rojo{border-color:#D64545;background:#FDECEC}.result.rojo .dot{background:#D64545}
+.result.ambar{border-color:#E0A100;background:#FFF6DB}.result.ambar .dot{background:#E0A100}
+.result.verde{border-color:var(--mint);background:var(--mint-soft)}.result.verde .dot{background:var(--mint)}
+.result ul{margin:18px 0 0;padding-left:22px}
+.result li{margin:10px 0;color:#2A3B4C}
+.result .todo{margin-top:18px;padding-top:16px;border-top:1px solid rgba(0,0,0,.08)}
+.result .todo h3{font-size:18px;margin-bottom:6px}
+.share{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;align-items:center}
+.share button{cursor:pointer}
+#copiado{font-size:14px;color:var(--mint-ink)}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="index.html" aria-label="Payfense, inicio">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="6" y="6" width="23" height="23" rx="6" fill="#0E2A47"/><circle cx="46.5" cy="17.5" r="11.5" fill="#2BD39A"/><rect x="6" y="35" width="23" height="23" rx="6" fill="#0E2A47"/><rect x="35" y="35" width="23" height="23" rx="6" fill="#0E2A47"/></svg>
+      <span>payfense</span>
+    </a>
+    <nav class="nav" aria-label="Principal">
+      <a class="hide-sm" href="index.html#como-funciona">Cómo funciona</a>
+      <a class="hide-sm" href="index.html#guias">Guías</a>
+      <a class="hide-sm" href="index.html#preguntas">Preguntas</a>
+      <a class="btn btn-primary btn-sm" href="index.html#apuntate">Unirme a la lista</a>
+    </nav>
+  </div>
+</header>
+
+<main class="article">
+<div class="container narrow">
+<div class="crumbs"><a href="index.html">Inicio</a> / Detector de estafas</div>
+<span class="eyebrow">Gratis · Sin registrarte</span>
+<h1>¿Es una estafa este mensaje?</h1>
+<p class="lead">Pega el SMS, WhatsApp o email que te ha llegado a ti o a tus padres. En un segundo te decimos si tiene pinta de estafa y por qué.</p>
+
+<div class="det-box">
+  <label for="msg">Pega aquí el mensaje que te ha llegado</label>
+  <textarea id="msg" placeholder="Por ejemplo: «Hola mamá, se me ha roto el móvil, este es mi número nuevo. ¿Me haces un Bizum urgente?»"></textarea>
+  <div class="det-actions">
+    <button class="btn btn-primary" id="analizar" type="button">Comprobar mensaje</button>
+    <button class="btn btn-ghost" id="borrar" type="button">Borrar</button>
+  </div>
+  <div class="det-examples" aria-label="Ejemplos">
+    <span>Prueba un ejemplo:</span>
+    <button type="button" data-ej="0">Hola mamá</button>
+    <button type="button" data-ej="1">Falso banco</button>
+    <button type="button" data-ej="2">Paquete</button>
+    <button type="button" data-ej="3">Bizum inverso</button>
+    <button type="button" data-ej="4">Mercado Pago</button>
+  </div>
+  <p class="det-privacy">El mensaje no sale de tu móvil: se revisa aquí mismo, en tu navegador. No guardamos nada.</p>
+</div>
+
+<section class="result" id="resultado" hidden aria-live="polite">
+  <div class="light"><span class="dot" aria-hidden="true"></span><h2 id="res-titulo"></h2></div>
+  <p id="res-resumen" style="margin:12px 0 0"></p>
+  <ul id="res-motivos"></ul>
+  <div class="todo"><h3>Qué hacer ahora</h3><p id="res-hacer" style="margin:0"></p></div>
+  <div class="share">
+    <button class="btn btn-mint" id="compartir" type="button">Envíaselo a tu familia</button>
+    <span id="copiado" role="status"></span>
+  </div>
+</section>
+
+<h2>Qué revisa el detector</h2>
+<ul>
+<li><b>Peticiones de dinero</b> por Bizum, transferencia, Mercado Pago, Nequi, Daviplata, Yape, SPEI o depósito.</li>
+<li><b>“Hola mamá, he cambiado de número”</b>: el falso hijo o hija en apuros.</li>
+<li><b>Falsos bancos</b>: “su cuenta está bloqueada”, “mueva su dinero a una cuenta segura”, “llame a este número”.</li>
+<li><b>Códigos y claves</b>: nadie de verdad te pedirá el código que te llega por SMS, tu PIN o los datos de tu tarjeta.</li>
+<li><b>Enlaces raros</b>, prisas, premios, paquetes retenidos, multas y devoluciones de Hacienda falsas.</li>
+<li><b>Apps de control remoto</b> como AnyDesk o TeamViewer, e inversiones “sin riesgo”.</li>
+</ul>
+<p class="small">El detector usa reglas sencillas y puede equivocarse. Si tienes dudas, no pulses enlaces, no des códigos y llama tú a tu banco o a tu familiar al número de siempre. En España puedes llamar gratis al 017 (INCIBE).</p>
+
+<div class="article-cta"><h3>¿Y si a tus padres les intentan quitar dinero cuando no estás? Payfense te avisa al momento.</h3><a class="btn btn-primary" href="index.html#apuntate">Apúntate gratis</a></div>
+</div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <a class="brand" href="index.html" aria-label="Payfense, inicio">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><rect x="6" y="6" width="23" height="23" rx="6" fill="#0E2A47"/><circle cx="46.5" cy="17.5" r="11.5" fill="#2BD39A"/><rect x="6" y="35" width="23" height="23" rx="6" fill="#0E2A47"/><rect x="35" y="35" width="23" height="23" rx="6" fill="#0E2A47"/></svg>
+      <span>payfense</span>
+    </a>
+    <nav aria-label="Pie">
+      <a href="mailto:payfense@gmail.com">payfense@gmail.com</a>
+      <a href="aviso-legal.html">Aviso legal</a>
+      <a href="privacidad.html">Privacidad</a>
+      <span>© 2026 Payfense</span>
+    </nav>
+  </div>
+</footer>
+
+<script>
+/* Reglas del detector. Todo se ejecuta en el navegador. */
+var REGLAS = [
+  {id:"remoto", peso:6, fuerte:true, re:/\b(anydesk|teamviewer|quicksupport|rustdesk|supremo|control remoto|acceso remoto|asistencia remota|soporte remoto)\b/,
+   txt:"Te piden instalar una app para controlar tu móvil u ordenador. Con eso pueden entrar en tu banco. Ningún banco lo pide."},
+  {id:"cuenta_segura", peso:6, fuerte:true, re:/(cuenta (segura|de seguridad|blindada|protegida|puente)|(mueva|mover|traspase|traspasar|transfiera|transferir|pase|pasar) (todo )?(su|tu|el) (dinero|saldo|fondos|ahorros)|proteger (sus|tus) (fondos|ahorros|dinero))/,
+   txt:"Te dicen que muevas tu dinero a una “cuenta segura”. Es el timo del falso banco: esa cuenta es del estafador."},
+  {id:"codigo", peso:5, fuerte:true, re:/((dime|dame|dimelo|facilite|facilitenos|indique|indiquenos|comparta|compartir|envie|enviame|mandame|pasame|reenvia|reenvie|dicte|confirme|confirma|necesito|introduzca)[^.!?\n]{0,40}\b(codigo|clave|pin|contrasena|token|otp|cvv|cvc)\b|\b(codigo|clave)[^.!?\n]{0,30}(que te (ha llegado|llego|llegara|va a llegar)|que le (ha llegado|llego|llegara|va a llegar)|por sms|de verificacion|de 6 digitos))/,
+   txt:"Te piden un código, clave o PIN. Esos códigos sirven para autorizar pagos: nadie de verdad te los pedirá nunca."},
+  {id:"tarjeta", peso:5, fuerte:true, re:/(numero (de|completo de) (la |su |tu )?tarjeta|fecha de caducidad|fecha de vencimiento|\bcvv\b|\bcvc\b|codigo de seguridad de (la|su|tu) tarjeta|datos (bancarios|de (la|su|tu) tarjeta)|clave de (la |su |tu )?banca)/,
+   txt:"Te piden los datos de tu tarjeta o de tu banco. Tu banco ya los tiene: nunca te los pide por mensaje."},
+  {id:"bizum_inverso", peso:5, fuerte:true, re:/((acepta|aceptar|acepte|aprueba|aprobar|confirma|confirmar|autoriza|autorizar)[^.!?\n]{0,40}(bizum|solicitud|peticion|pago|cobro|transferencia)[^.!?\n]{0,40}(recibir|cobrar|te llegue|le llegue|el dinero)|para (recibir|cobrar) (el dinero|el pago|el bizum)[^.!?\n]{0,40}(acepta|aceptar|acepte|confirma|confirmar)|\b(acepta|aceptala|aceptalo|acepte|aceptela|aceptelo|aceptar|aceptarla|confirma|confirmala|aprueba|apruebala|autoriza|autorizala)\b[^.!?\n]{0,15}para (recibir|cobrar))/,
+   txt:"Te dicen que aceptes algo para recibir dinero. Para recibir un Bizum o una transferencia nunca hay que aceptar nada: si te piden aceptar, te están PIDIENDO dinero."},
+  {id:"cambio_numero", peso:3, re:/(cambiado de (numero|movil|celular|telefono)|(mi|este es mi) (nuevo numero|numero nuevo|nuevo movil|nuevo celular|nuevo whatsapp)|(se me ha|se me|me han) (roto|caido|mojado|robado|perdido)[^.!?\n]{0,15}(el )?(movil|celular|telefono)|(perdi|rompi|se me rompio|se me cayo|me robaron) (el |mi )?(movil|celular|telefono)|guarda (este|mi) (numero|nuevo))/,
+   txt:"Dice que ha cambiado de número o se le ha roto el móvil. Es el inicio típico del falso “hijo en apuros”. Llama al número de siempre antes de nada."},
+  {id:"familiar", peso:1, re:/\b(hola|hey|oye|buenas)?\s*(mama|mami|papa|papi|ma|pa|abuela|abuelo|abu|tita|tia|tio)\b|soy (tu|su) (hijo|hija|nieto|nieta|sobrino|sobrina)/,
+   txt:"Se presenta como un familiar. Comprueba que de verdad es esa persona llamándola a su número de siempre."},
+  {id:"pide_dinero", peso:3, re:/((hazme|haz|me haces|me puedes hacer|puedes hacerme|necesito que me hagas|mandame|enviame|me mandas|me envias|pasame|prestame|me prestas|depositame|transfiereme|ingresame|me ingresas|me transfieres|me depositas)\b[^.!?\n]{0,40}|necesito (dinero|plata|pasta|que me prestes|que me pases|que me mandes|un favor)|tengo que pagar (una factura|hoy|ya|urgente)|(haz|hacer|realice|realizar|haga) (un|una|el) (bizum|transferencia|deposito|pago|ingreso|yape|plin|spei))/,
+   txt:"Te pide dinero. Antes de enviar nada, confirma con una llamada a esa persona a su número de siempre."},
+  {id:"pago", peso:1, re:/\b(bizum|mercado ?pago|nequi|daviplata|yape|plin|spei|zelle|western union|clabe|cvu|cbu|transferencia)\b/,
+   txt:"Habla de pagos o envíos de dinero (Bizum, transferencia, Mercado Pago, Nequi, Yape, SPEI…). Si no lo esperabas, compruébalo en la app oficial."},
+  {id:"urgencia", peso:2, re:/(urgente|urgencia|ahora mismo|ya mismo|inmediatamente|de inmediato|cuanto antes|lo antes posible|hoy mismo|en las proximas \d+ ?(h|horas|minutos)|en \d+ ?(h|horas|minutos)|ultimo aviso|plazo|antes de las|rapido|deprisa|no hay tiempo|caduca|expira|vence hoy)/,
+   txt:"Mete prisa. Las estafas siempre tienen prisa para que no te pares a pensar ni preguntes a nadie."},
+  {id:"bloqueo", peso:3, re:/((cuenta|tarjeta|acceso|banca|usuario|perfil)[^.!?\n]{0,30}(bloquead|suspendid|desactivad|restringid|cancelad|limitad|inhabilitad)|(acceso|inicio de sesion|movimiento|operacion|cargo|compra|actividad|transaccion) (no reconocid|inusual|sospechos|irregular|fraudulent|no autorizad)|(verifique|verifica|valide|valida|actualice|actualiza|confirme|confirma|reactive|reactiva|desbloquee|desbloquea) (su|tu|sus|tus) (identidad|datos|cuenta|tarjeta|informacion|acceso|usuario))/,
+   txt:"Dice que tu cuenta o tarjeta tiene un problema o un cargo raro. Los estafadores usan ese susto para que pulses su enlace. Entra tú en la app de tu banco o llama al número de tu tarjeta."},
+  {id:"llamar", peso:2, re:/((llame|llama|llamenos|contacte|contacta|marque|marca) (al|a este|a nuestro|inmediatamente al|urgentemente al)[^.!?\n]{0,25}\d{3}|departamento (de )?(seguridad|fraude|antifraude)|le (llamara|llamaremos|contactara) (un|nuestro) (agente|gestor|asesor|tecnico))/,
+   txt:"Te da un número para que llames. Puede ser el del estafador. Llama solo al número que viene detrás de tu tarjeta o en la web oficial."},
+  {id:"paquete", peso:3, re:/(\b(correos|dhl|seur|gls|mrw|ups|fedex|nacex|ctt|estafeta|servientrega|correo argentino|andreani|serpost|chilexpress|4-72)\b[^.!?\n]{0,80}|(paquete|envio|pedido|entrega)[^.!?\n]{0,40}(retenido|pendiente|en espera|no (se ha podido|pudo)|detenido|en aduana|devuelto)|(tasa|tasas|arancel|gastos) (de )?(aduana|envio|entrega|reenvio)|actualice (la|su) direccion)/,
+   txt:"Habla de un paquete retenido o de pagar gastos de envío. Es de los SMS falsos más comunes. Si esperas algo, entra tú en la web oficial de la empresa."},
+  {id:"multa_hacienda", peso:3, re:/(\b(dgt|agencia tributaria|hacienda|aeat|seguridad social|sat|afip|arca|dian|sunat|sii|anses|imss|policia|guardia civil|fiscalia|juzgado)\b[^.!?\n]{0,80}(multa|sancion|deuda|reembolso|devolucion|pago|pendiente|embargo|denuncia|citacion|expediente)|(multa|sancion|infraccion) (pendiente|de trafico|impagada|no pagada)|(reembolso|devolucion) (de impuestos|fiscal|pendiente|de hacienda|de la renta))/,
+   txt:"Dice ser de Tráfico, Hacienda, la Policía u otro organismo y habla de multas, deudas o devoluciones. Los organismos no te piden pagar por SMS ni WhatsApp."},
+  {id:"premio", peso:3, re:/(has ganado|ha ganado|ganaste|ganador|premio|sorteo|felicidades|enhorabuena|regalo|gratis para ti|reclama (tu|su)|cupon|bono de|tarjeta regalo|seleccionado para)/,
+   txt:"Te promete un premio o regalo. Si no has participado en nada, no has ganado nada: buscan tus datos o un pago."},
+  {id:"inversion", peso:3, re:/(inversion|invertir|criptomoneda|cripto|bitcoin|usdt|trading|rentabilidad|ganancias garantizadas|sin riesgo|duplica tu dinero|gana dinero desde casa|ingresos extra|trabajo desde casa|te pagamos por|dar like|me gusta a videos)/,
+   txt:"Habla de inversiones, cripto o trabajos fáciles desde casa. Si promete ganar mucho sin riesgo, es una trampa."},
+  {id:"secreto", peso:2, re:/(no (puedo|podre) (hablar|llamar|atender|coger)|no me llames|solo (puedo|por) (escribir|whatsapp|mensaje)|no se lo (digas|cuentes)|que no se entere|es un secreto|entre tu y yo)/,
+   txt:"Pide que no llames o que no se lo cuentes a nadie. Así evitan que descubras el engaño."}
+];
+
+function normalizar(t){return t.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/\s+/g," ");}
+
+function enlaces(t){
+  var m = t.match(/\b((https?:\/\/|www\.)[^\s]+|[a-z0-9-]+\.(com|es|net|org|info|xyz|top|site|online|app|link|click|shop|icu|live|cc|co|me|mx|ar|pe|cl|ly|io|ru|cn|tk|ml|ga|gq|cf|vip|club|store|pro|lat|support|help)(\/[^\s]*)?)/gi) || [];
+  return m.filter(function(u){return !/^\d+\.\d+$/.test(u);});
+}
+
+function analizar(texto){
+  var n = normalizar(texto||"");
+  var motivos = [], puntos = 0, fuerte = false, vistos = {};
+  REGLAS.forEach(function(r){
+    if(r.re.test(n)){ vistos[r.id]=true; motivos.push(r.txt); puntos += r.peso; if(r.fuerte) fuerte = true; }
+  });
+  var urls = enlaces(n);
+  if(urls.length){
+    var raro = urls.some(function(u){
+      return /(bit\.ly|tinyurl|t\.co\/|cutt\.ly|is\.gd|rb\.gy|shorturl|acortar|goo\.su|\.(xyz|top|site|online|link|click|shop|icu|live|cc|tk|ml|ga|gq|cf|vip|club|lat|support|help|info)\b|\d+\.\d+\.\d+\.\d+|-(es|seguro|verifica|cliente|clientes|online|app|login|soporte)|(seguro|verifica|verificar|validar|login|acceso|cliente|soporte|update|actualiza)[a-z0-9-]*\.)/.test(u);
+    });
+    puntos += raro ? 4 : 2;
+    motivos.push(raro
+      ? "Tiene un enlace con una dirección rara o acortada. Así llevan a webs falsas que copian la de tu banco o de Correos. No lo abras."
+      : "Tiene un enlace. Los bancos y organismos casi nunca mandan enlaces por SMS o WhatsApp. Mejor entra tú en su web o app oficial.");
+    vistos.enlace = true;
+  }
+  /* Combinaciones muy típicas */
+  if(vistos.cambio_numero && (vistos.pide_dinero || vistos.pago)) { puntos += 3; fuerte = true; }
+  if(vistos.familiar && (vistos.pide_dinero || vistos.pago) && vistos.urgencia) { puntos += 2; }
+  if(vistos.enlace && (vistos.bloqueo || vistos.paquete || vistos.multa_hacienda || vistos.premio)) { puntos += 2; fuerte = true; }
+  var nivel = (fuerte || puntos >= 6) ? "rojo" : (puntos >= 2 ? "ambar" : "verde");
+  return {nivel:nivel, puntos:puntos, motivos:motivos};
+}
+
+var TEXTOS = {
+  rojo:{t:"Muy probablemente es una estafa", r:"Este mensaje tiene las señales típicas de un engaño.",
+        h:"No respondas, no pulses ningún enlace y no des ningún código ni dato. Si dice ser un familiar, llámale a su número de siempre. Si dice ser tu banco, llama tú al número que viene detrás de tu tarjeta. Si ya has pagado o dado datos, llama a tu banco ahora mismo y denuncia."},
+  ambar:{t:"Cuidado: tiene señales sospechosas", r:"No es seguro que sea una estafa, pero hay cosas raras.",
+        h:"Antes de hacer nada, compruébalo por otro camino: llama a la persona o a la empresa a su número oficial, o entra tú en su app o web. No uses los enlaces ni los teléfonos del mensaje."},
+  verde:{t:"No vemos señales claras de estafa", r:"No hemos encontrado las trampas más habituales.",
+        h:"Aun así, si te pide dinero, datos o prisa, desconfía y compruébalo llamando al número de siempre. El detector usa reglas sencillas y puede fallar."}
+};
+
+var EJEMPLOS = [
+  "Hola mamá, se me ha roto el móvil y este es mi número nuevo. Guárdalo. ¿Puedes hacerme un Bizum de 480 € urgente? Tengo que pagar una factura hoy y no puedo hablar.",
+  "BBVA: Hemos detectado un acceso no reconocido en su cuenta. Para evitar el bloqueo verifique su identidad en https://bbva-seguro-clientes.top/login",
+  "Correos: su paquete está retenido por tasas de aduana pendientes (1,99 €). Pague antes de 24 horas en www.correos-envio.info o será devuelto.",
+  "Hola, soy el comprador del sofá de Wallapop. Te he enviado una solicitud por Bizum, acéptala para recibir el dinero, que tengo prisa.",
+  "Mercado Pago: tu cuenta fue suspendida por actividad sospechosa. Para reactivarla dinos el código que te llegó por SMS. Un asesor te llamará."
+];
+
+var $ = function(id){return document.getElementById(id);};
+function mostrar(){
+  var txt = $("msg").value.trim();
+  if(!txt){ $("msg").focus(); return; }
+  var r = analizar(txt), T = TEXTOS[r.nivel], box = $("resultado");
+  box.className = "result " + r.nivel; box.hidden = false;
+  $("res-titulo").textContent = T.t;
+  $("res-resumen").textContent = T.r + (r.motivos.length ? " Esto es lo que hemos visto:" : "");
+  var ul = $("res-motivos"); ul.innerHTML = "";
+  r.motivos.forEach(function(m){ var li = document.createElement("li"); li.textContent = m; ul.appendChild(li); });
+  $("res-hacer").textContent = T.h;
+  $("copiado").textContent = "";
+  box.scrollIntoView({behavior:"smooth", block:"start"});
+}
+$("analizar").addEventListener("click", mostrar);
+$("borrar").addEventListener("click", function(){ $("msg").value=""; $("resultado").hidden=true; $("msg").focus(); });
+Array.prototype.forEach.call(document.querySelectorAll("[data-ej]"), function(b){
+  b.addEventListener("click", function(){ $("msg").value = EJEMPLOS[+b.getAttribute("data-ej")]; mostrar(); });
+});
+$("compartir").addEventListener("click", function(){
+  var url = location.href.split("#")[0].split("?")[0];
+  var texto = "Antes de pagar o dar un código, pega el mensaje aquí y mira si es una estafa. Es gratis:";
+  if(navigator.share){ navigator.share({title:"Detector de estafas gratis", text:texto, url:url}).catch(function(){}); return; }
+  var todo = texto + " " + url;
+  if(navigator.clipboard){ navigator.clipboard.writeText(todo).then(function(){ $("copiado").textContent = "Enlace copiado. Pégalo en el grupo de la familia."; }); }
+  else { window.prompt("Copia este enlace:", todo); }
+});
+if(typeof module !== "undefined"){ module.exports = {analizar:analizar}; }
+</script>
+</body>
+</html>
