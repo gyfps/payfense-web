@@ -203,47 +203,8 @@
           <p>Regístrate en la lista de espera para recibir novedades y conocer las condiciones de acceso anticipado.</p>
         </div>
         <div class="actions">
-          <form class="wl-form" id="wl-form" novalidate>
-            <div>
-              <label for="wl-email">Tu correo electrónico</label>
-              <input id="wl-email" name="email" type="email" autocomplete="email" placeholder="nombre@correo.com" required>
-            </div>
-            <div class="row">
-              <div>
-                <label for="wl-pais">País</label>
-                <select id="wl-pais" name="pais" required>
-                  <option value="España">España</option>
-                  <option value="México">México</option>
-                  <option value="Colombia">Colombia</option>
-                  <option value="Argentina">Argentina</option>
-                  <option value="Chile">Chile</option>
-                  <option value="Perú">Perú</option>
-                  <option value="Estados Unidos">Estados Unidos</option>
-                  <option value="Otro">Otro</option>
-                </select>
-              </div>
-              <div>
-                <label for="wl-canal">¿Cómo nos conociste?</label>
-                <select id="wl-canal" name="canal">
-                  <option value="">Prefiero no decirlo</option>
-                  <option value="TikTok">TikTok</option>
-                  <option value="Instagram">Instagram</option>
-                  <option value="Youtube">YouTube</option>
-                  <option value="Prensa o blog">Prensa o blog</option>
-                  <option value="Google">Google</option>
-                  <option value="Me lo enseñó alguien">Me lo enseñó alguien</option>
-                </select>
-              </div>
-            </div>
-            <button class="btn btn-mint" type="submit" id="wl-btn">Solicitar acceso anticipado</button>
-            <p class="wl-error" id="wl-error" role="alert"></p>
-            <small>Sin compromiso de compra. Al registrarte aceptas recibir novedades por email según nuestra <a href="privacidad.html">política de privacidad</a>. Puedes darte de baja cuando quieras.</small>
-          </form>
-          <div class="wl-ok" id="wl-ok" hidden role="status">
-            <h3>Ya estás en la lista.</h3>
-            <p id="wl-ok-txt">Te escribiremos cuando haya novedades sobre el acceso anticipado.</p>
-            <a class="btn btn-mint" href="#fundador">Ver la plaza fundador</a>
-          </div>
+          <a class="btn btn-mint" href="https://docs.google.com/forms/d/e/1FAIpQLSf0JmtQz_4ahZUHwywUfacTEf2be-mP0vHsVRKnVqOBvSyNEw/viewform" target="_blank" rel="noopener">Solicitar acceso anticipado</a>
+          <small>Te llevará a un formulario breve: 20 segundos. Sin compromiso de compra. Al registrarte aceptas recibir novedades por email según nuestra <a href="privacidad.html">política de privacidad</a>. Puedes darte de baja cuando quieras.</small>
         </div>
       </div>
 
@@ -257,7 +218,7 @@
           <div class="price">29 € <small>el primer año</small></div>
           <p class="note">Después, 39 € al año o 4,99 € al mes.</p>
           <!-- PENDIENTE-STRIPE: cambiar este enlace por el de https://buy.stripe.com/... cuando exista -->
-          <div style="margin-top:24px"><a class="btn btn-primary" id="btn-fundador" href="#apuntate">Reservar mi plaza</a></div>
+          <div style="margin-top:24px"><a class="btn btn-primary" id="btn-fundador" href="https://docs.google.com/forms/d/e/1FAIpQLSf0JmtQz_4ahZUHwywUfacTEf2be-mP0vHsVRKnVqOBvSyNEw/viewform" target="_blank" rel="noopener">Reservar mi plaza</a></div>
           <p class="note" id="nota-fundador">Las reservas se abren en unos días. Regístrate en la lista de espera y te avisaremos los primeros.</p>
         </div>
       </div>
@@ -287,39 +248,5 @@
   </div>
 </footer>
 
-<script>
-/* Lista de espera: envía a Google Forms sin salir de la página.
-   Rellena los entry.* con el enlace prellenado del formulario. Si están vacíos, abre el formulario de Google. */
-var FORM = {
-  viewform: "https://docs.google.com/forms/d/e/1FAIpQLSf0JmtQz_4ahZUHwywUfacTEf2be-mP0vHsVRKnVqOBvSyNEw/viewform",
-  action:   "https://docs.google.com/forms/d/e/1FAIpQLSf0JmtQz_4ahZUHwywUfacTEf2be-mP0vHsVRKnVqOBvSyNEw/formResponse",
-  email: "", pais: "", canal: ""
-};
-(function(){
-  var f = document.getElementById("wl-form"), err = document.getElementById("wl-error"), btn = document.getElementById("wl-btn");
-  var params = new URLSearchParams(location.search), utm = (params.get("utm_source") || "").toLowerCase();
-  var mapa = {tiktok:"TikTok", instagram:"Instagram", ig:"Instagram", youtube:"Youtube", yt:"Youtube", google:"Google", prensa:"Prensa o blog"};
-  if (mapa[utm]) document.getElementById("wl-canal").value = mapa[utm];
-  f.addEventListener("submit", function(e){
-    e.preventDefault(); err.textContent = "";
-    var email = document.getElementById("wl-email").value.trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { err.textContent = "Escribe un correo electrónico válido."; document.getElementById("wl-email").focus(); return; }
-    var pais = document.getElementById("wl-pais").value, canal = document.getElementById("wl-canal").value;
-    if (!FORM.email) { window.open(FORM.viewform, "_blank", "noopener"); err.textContent = "Termina el registro en la pestaña que se ha abierto."; return; }
-    var datos = new URLSearchParams();
-    datos.append(FORM.email, email); datos.append(FORM.pais, pais);
-    if (canal && FORM.canal) datos.append(FORM.canal, canal);
-    btn.disabled = true; btn.textContent = "Enviando…";
-    fetch(FORM.action, {method:"POST", mode:"no-cors", body:datos}).then(function(){
-      f.hidden = true;
-      document.getElementById("wl-ok-txt").textContent = "Te escribiremos a " + email + " cuando haya novedades sobre el acceso anticipado.";
-      document.getElementById("wl-ok").hidden = false;
-    }).catch(function(){
-      btn.disabled = false; btn.textContent = "Solicitar acceso anticipado";
-      err.textContent = "No se ha podido enviar. Revisa tu conexión e inténtalo de nuevo.";
-    });
-  });
-})();
-</script>
 </body>
 </html>
